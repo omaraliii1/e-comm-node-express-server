@@ -53,24 +53,6 @@ async function loginUser({ username, password }) {
   };
 }
 
-async function logoutUser(token) {
-  const decoded = jwt.decode(token);
-  // console.log(decoded);
-  if (!decoded || typeof decoded.exp !== "number") {
-    throw new Error("Invalid token format");
-  }
-
-  const exp = decoded.exp;
-  const nowInSeconds = Math.floor(Date.now() / 1000);
-  const ttl = exp - nowInSeconds;
-
-  if (typeof ttl !== "number" || ttl <= 0 || !Number.isInteger(ttl)) {
-    throw new Error("Invalid TTL value");
-  }
-
-  await redisClient.set(token, "blacklisted", { EX: ttl });
-}
-
 async function updateUser(token, email) {
   const decoded = jwt.decode(token);
   if (!decoded?.id) {
@@ -98,6 +80,5 @@ async function updateUser(token, email) {
 module.exports = {
   createUser,
   loginUser,
-  logoutUser,
   updateUser,
 };

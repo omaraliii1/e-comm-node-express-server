@@ -3,7 +3,6 @@ const User = require("../models/User");
 const {
   createUser,
   loginUser,
-  logoutUser,
   updateUser,
 } = require("../services/user.service");
 const { response } = require("express");
@@ -37,19 +36,6 @@ async function login(req, res) {
     res.status(201).json(response);
   } catch (err) {
     res.status(err.status || 500).json({ message: err.message });
-  }
-}
-
-async function logout(req, res) {
-  try {
-    const token = req.header("auth_token");
-    if (!token) return res.status(400).send("Token required");
-
-    await logoutUser(token);
-    res.send("User logged out successfully");
-  } catch (error) {
-    console.error("Logout error:", error.message);
-    res.status(500).send("Failed to process logout");
   }
 }
 
@@ -112,14 +98,14 @@ async function getAllUsers(req, res) {
     }
 
     const users = await User.find();
-    res.json(
-      users.map((user) => ({
+    res.json({
+      users: users.map((user) => ({
         username: user.username,
         email: user.email,
         id: user.id,
         role: user.role,
-      }))
-    );
+      })),
+    });
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
   }
@@ -140,7 +126,6 @@ async function editUser(req, res) {
 module.exports = {
   register,
   login,
-  logout,
   deleteUser,
   getUserById,
   getAllUsers,

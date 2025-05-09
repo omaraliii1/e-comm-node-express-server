@@ -34,6 +34,6 @@ router.delete("/:id", isAuth, deleteUser);
 router.get("/:id", getUserById);
 router.put("/edit", isAuth, editUser);
 
-router.route("/").post(validateUser, register).patch(isAuth, logout).put(login);
+router.route("/").post(validateUser, register).put(login);
 
 module.exports = router;
