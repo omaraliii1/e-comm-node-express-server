@@ -8,7 +8,14 @@ const cors = require("cors");
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "auth_token", "authorization"],
+  })
+);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(bodyParser.json());
