@@ -1,6 +1,5 @@
 const { hashingPassword, compareHashed } = require("../utils/hashing");
 const { genToken } = require("../utils/gentoken");
-const redisClient = require("../../redisClient");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
@@ -53,28 +52,31 @@ async function loginUser({ username, password }) {
   };
 }
 
-async function updateUser(token, email) {
-  const decoded = jwt.decode(token);
-  if (!decoded?.id) {
-    throw { status: 400, message: "Invalid token" };
+async function updateUser(userId, newEmail) {
+  try {
+    const emailExists = await User.findOne({ email: newEmail });
+    if (emailExists) {
+      return { error: true, status: 409, message: "Email already registered" };
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { email: newEmail },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return { error: true, status: 404, message: "User not found" };
+    }
+
+    return { status: 200, message: "Email updated successfully" };
+  } catch (err) {
+    return {
+      error: true,
+      status: err.status || 500,
+      message: err.message || "Internal server error",
+    };
   }
-
-  const emailExists = await User.findOne({ email });
-  if (emailExists) {
-    throw { status: 409, message: "Email already registered" };
-  }
-
-  const updatedUser = await User.findByIdAndUpdate(
-    decoded.id,
-    { email },
-    { new: true }
-  );
-
-  if (!updatedUser) {
-    throw { status: 404, message: "User not found" };
-  }
-
-  return { message: "Email updated successfully" };
 }
 
 module.exports = {
