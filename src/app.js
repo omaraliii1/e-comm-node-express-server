@@ -1,3 +1,4 @@
+const publicRoute = require("./routes/public.routes");
 const authRoute = require("./routes/auth.routes");
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
+app.use("/api/", publicRoute);
 app.use("/api/users", authRoute);
 
 const server = http.createServer(app);
