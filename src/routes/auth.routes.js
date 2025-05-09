@@ -3,8 +3,6 @@ const {
   login,
   deleteUser,
   logout,
-  notAuth,
-  auth,
   getUserById,
   getAllUsers,
   editUser,
@@ -31,8 +29,7 @@ const validateUser = [
 const router = require("express").Router();
 
 router.get("/all", isAuth, getAllUsers);
-router.get("/public", notAuth);
-router.get("/private/:id", isAuth, auth);
+
 router.delete("/:id", isAuth, deleteUser);
 router.get("/:id", getUserById);
 router.put("/edit", isAuth, editUser);
