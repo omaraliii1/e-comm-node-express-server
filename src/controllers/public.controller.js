@@ -1,9 +1,7 @@
 const User = require("../models/User");
 
 function notAuth(req, res) {
-  res.status(200).json({
-    message: "Welcome. You are not authenticated.",
-  });
+  res.status(200).json("Welcome to the Home Page!");
 }
 
 async function auth(req, res) {
@@ -14,8 +12,8 @@ async function auth(req, res) {
 
     res.status(200).json({
       message: "Authenticated user",
-      userId,
-      name: user.username,
+      id: userId,
+      username: user.username,
       role: user.role,
     });
   } catch (err) {
