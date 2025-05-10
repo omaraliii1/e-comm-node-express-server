@@ -28,12 +28,12 @@ const validateUser = [
 
 const router = require("express").Router();
 
-router.get("/all", isAuth, getAllUsers);
-
-router.delete("/:id", isAuth, deleteUser);
+router.post("/", validateUser, register);
+router.get("/", isAuth, getAllUsers); // Check
 router.get("/:id", getUserById);
-router.put("/edit", isAuth, editUser);
+router.patch("/:id", isAuth, editUser); // Check
+router.delete("/:id", isAuth, deleteUser); // Check
 
-router.route("/").post(validateUser, register).put(login);
+router.post("/login", login);
 
 module.exports = router;
