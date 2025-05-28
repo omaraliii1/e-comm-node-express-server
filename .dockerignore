@@ -1,0 +1,19 @@
+# Ignore Git
+.git
+.gitignore
+
+# Ignore Node modules
+node_modules
+
+# Ignore logs and system files
+npm-debug.log
+yarn-error.log
+.DS_Store
+
+# Ignore config files not needed in image
+docker-compose.yml
+Dockerfile
+images
+
+# Ignore build artifacts
+dist
