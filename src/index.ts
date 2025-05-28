@@ -1,4 +1,5 @@
 import productRoute from "./products/routes/product.routes";
+import errorHandler from "./middlewares/exceptionHandler";
 import publicRoute from "./users/routes/public.routes";
 import authRoute from "./users/routes/auth.routes";
 import express, { Express } from "express";
@@ -9,7 +10,6 @@ import dotenv from "dotenv";
 import http from "http";
 import cors from "cors";
 import path from "path";
-import errorHandler from "./middlewares/exceptionHandler";
 
 dotenv.config();
 const PORT: string | number = process.env.PORT || 3000;
