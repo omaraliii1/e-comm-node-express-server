@@ -40,7 +40,10 @@ app.use(errorHandler);
 const server = http.createServer(app);
 
 mongoose
-  .connect("mongodb://admin:adminpass@localhost:27017/auth?authSource=admin")
+  .connect(
+    process.env.MONGO_URI ||
+      "mongodb://admin:adminpass@mongo:27017/auth?authSource=admin"
+  )
   .then(() => console.log("Connected to DB..!"))
   .catch((err: Error) => console.error("Database connection error:", err));
 
