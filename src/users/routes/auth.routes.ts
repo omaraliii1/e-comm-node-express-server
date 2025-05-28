@@ -14,11 +14,11 @@ import { createUserDto, loginUserDto, updateUserDto } from "../dtos/user.dto";
 
 const router: Router = Router();
 
-router.post("/login", loginUserDto, login); // tmam
 router.get("/:id", getUserById);
 router.get("/", isAuth, getAllUsers);
-router.patch("/:id", isAuth, updateUserDto, editUser);
-router.post("/", createUserDto, register);
 router.delete("/:id", isAuth, deleteUser);
+router.post("/", createUserDto, register);
+router.post("/login", loginUserDto, login);
+router.patch("/:id", isAuth, updateUserDto, editUser);
 
 export default router;
