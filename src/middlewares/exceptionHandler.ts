@@ -1,4 +1,3 @@
-// middleware/errorHandler.ts
 import { Request, Response, NextFunction } from "express";
 import { BaseError } from "../interfaces/responses.interface";
 
