@@ -7,7 +7,7 @@ import {
   register,
 } from "../../users/controller/auth.controller";
 
-import { isAuth } from "../../utils/isAuth";
+import { isAuth } from "../../middlewares/isAuth";
 
 import { Router } from "express";
 import { createUserDto, loginUserDto, updateUserDto } from "../dtos/user.dto";

@@ -8,7 +8,7 @@ import {
   getAllProducts,
   postAddProduct,
 } from "../controllers/products.controller";
-import { isAuth } from "../../utils/isAuth";
+import { isAuth } from "../../middlewares/isAuth";
 import { createProductDto } from "../dtos/products.dto";
 
 router.get("/", getAllProducts);
