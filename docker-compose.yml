@@ -14,8 +14,6 @@ services:
 
   server:
     build:
-      context: .
-      dockerfile: Dockerfile
     container_name: node-server
     ports:
       - "3000:3000"
