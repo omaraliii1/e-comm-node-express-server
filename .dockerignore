@@ -13,7 +13,6 @@ yarn-error.log
 # Ignore config files not needed in image
 docker-compose.yml
 Dockerfile
-images
 
 # Ignore build artifacts
 dist
