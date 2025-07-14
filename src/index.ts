@@ -38,12 +38,11 @@ app.use("/images", express.static(path.join(__dirname, "../images")));
 
 app.use(errorHandler);
 const server = http.createServer(app);
-
+const uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:27017/${process.env.MONGO_DB_NAME}?authSource=admin`;
 mongoose
-  .connect("mongodb://admin:adminpass@mongo:27017/auth?authSource=admin")
-  .then(() => console.log("Connected to DB..!"))
-  .catch((err: Error) => console.error("Database connection error:", err));
-
+  .connect(uri)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 server.listen(PORT, () => {
   console.log(`Server is listening on Port ${PORT}`);
 });
